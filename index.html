@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photos and Stuff</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for a clean look */
+        body {
+            font-family: 'Inter', sans-serif; /* Using Inter font */
+            background-color: #f0f2f5; /* Light gray background */
+            color: #333;
+        }
+        .gallery-index-container {
+            /* Responsive grid for gallery links */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjust min-width for desired column count */
+            gap: 1.5rem; /* Space between grid items */
+            padding: 2rem;
+            max-width: 1200px; /* Max width for the container */
+            margin: 2rem auto; /* Center the container with margin */
+            background-color: #ffffff; /* White background for the section */
+            border-radius: 1rem; /* Rounded corners for the container */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+        }
+        .gallery-index-item {
+            /* Styling for each individual gallery card */
+            background-color: #f8f8f8; /* Lighter background for items */
+            border-radius: 0.75rem; /* Rounded corners for items */
+            overflow: hidden; /* Hide overflow for rounded images */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Lighter shadow for items */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth hover effect */
+            display: flex;
+            flex-direction: column;
+            cursor: pointer; /* Indicate clickable */
+        }
+        .gallery-index-item:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12); /* Enhanced shadow on hover */
+        }
+        .gallery-index-item img {
+            width: 100%; /* Image takes full width of its container */
+            height: 200px; /* Fixed height for images to ensure uniform grid */
+            object-fit: cover; /* Cover the area, cropping if necessary */
+            border-bottom: 1px solid #eee; /* Separator from text */
+        }
+        .gallery-index-info {
+            padding: 1rem;
+            text-align: center;
+            flex-grow: 1; /* Allows info section to take available space */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .gallery-index-info h3 {
+            font-size: 1.125rem; /* Larger title font */
+            font-weight: 600; /* Semi-bold */
+            margin-bottom: 0.5rem;
+            color: #222;
+        }
+        .gallery-index-info p {
+            font-size: 0.875rem; /* Smaller description font */
+            color: #666;
+            line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+        .view-gallery-button {
+            display: inline-block;
+            background-color: #4f46e5; /* Indigo 600 */
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.5rem; /* Rounded button corners */
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s ease-in-out;
+            margin-top: auto; /* Push button to the bottom */
+        }
+        .view-gallery-button:hover {
+            background-color: #4338ca; /* Darker indigo on hover */
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 768px) {
+            .gallery-index-container {
+                grid-template-columns: 1fr; /* Single column on small screens */
+                padding: 1rem;
+                margin: 1rem auto;
+            }
+            .gallery-index-item img {
+                height: 180px; /* Slightly smaller image height on mobile */
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center">
+    <div class="w-full max-w-screen-xl mx-auto p-4">
+        <h1 class="text-5xl font-extrabold text-center text-gray-800 mb-8 mt-4 md:mt-8">
+            Photos and Stuff
+        </h1>
+        <p class="text-lg text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            Welcome to my collection of images! Click on a gallery below to explore.
+        </p>
+
+        <div class="gallery-index-container">
+            <a href="gallery-one.html" class="gallery-index-item">
+                <img src="https://placehold.co/600x400/8A2BE2/FFFFFF?text=Gallery+1+Thumb" alt="Thumbnail for Landscapes Gallery">
+                <div class="gallery-index-info">
+                    <h3>Gallery One: Landscapes</h3>
+                    <p>Stunning vistas and natural beauty from around the world.</p>
+                    <span class="view-gallery-button">View Gallery</span>
+                </div>
+            </a>
+
+            <a href="gallery-two.html" class="gallery-index-item">
+                <img src="https://placehold.co/600x400/20B2AA/FFFFFF?text=Gallery+2+Thumb" alt="Thumbnail for Cityscapes Gallery">
+                <div class="gallery-index-info">
+                    <h3>Gallery Two: Cityscapes</h3>
+                    <p>The vibrant life and architecture of urban environments.</p>
+                    <span class="view-gallery-button">View Gallery</span>
+                </div>
+            </a>
+
+            <a href="gallery-three.html" class="gallery-index-item">
+                <img src="https://placehold.co/600x400/FFD700/000000?text=Gallery+3+Thumb" alt="Thumbnail for Wildlife Gallery">
+                <div class="gallery-index-info">
+                    <h3>Gallery Three: Wildlife</h3>
+                    <p>Captivating moments with animals in their natural habitats.</p>
+                    <span class="view-gallery-button">View Gallery</span>
+                </div>
+            </a>
+
+            </div>
+    </div>
+</body>
+</html>
