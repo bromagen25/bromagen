@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery One: Landscapes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for a clean look */
+        body {
+            font-family: 'Inter', sans-serif; /* Using Inter font */
+            background-color: #f0f2f5; /* Light gray background */
+            color: #333;
+        }
+        .gallery-header {
+            background-color: #6a0dad; /* Darker purple for header */
+            color: white;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            border-bottom-left-radius: 1rem;
+            border-bottom-right-radius: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .gallery-header h1 {
+            font-size: 2.5rem; /* Larger title */
+            font-weight: 700; /* Bold */
+            margin-bottom: 0.5rem;
+        }
+        .gallery-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        .back-button {
+            display: inline-block;
+            background-color: #4f46e5; /* Indigo 600 */
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s ease-in-out;
+            margin-top: 1.5rem;
+        }
+        .back-button:hover {
+            background-color: #4338ca; /* Darker indigo on hover */
+        }
+        .gallery-container {
+            /* Responsive grid for images */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjust min-width for desired column count */
+            gap: 1.5rem; /* Space between grid items */
+            padding: 2rem;
+            max-width: 1200px; /* Max width for the gallery */
+            margin: 2rem auto; /* Center the gallery with margin */
+            background-color: #ffffff; /* White background for the gallery section */
+            border-radius: 1rem; /* Rounded corners for the container */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+        }
+        .gallery-item {
+            /* Styling for each individual photo card */
+            background-color: #f8f8f8; /* Lighter background for items */
+            border-radius: 0.75rem; /* Rounded corners for items */
+            overflow: hidden; /* Hide overflow for rounded images */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Lighter shadow for items */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth hover effect */
+            display: flex;
+            flex-direction: column;
+        }
+        .gallery-item:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12); /* Enhanced shadow on hover */
+        }
+        .gallery-item img {
+            width: 100%; /* Image takes full width of its container */
+            height: 200px; /* Fixed height for images to ensure uniform grid */
+            object-fit: cover; /* Cover the area, cropping if necessary */
+            border-bottom: 1px solid #eee; /* Separator from text */
+        }
+        .image-info {
+            padding: 1rem;
+            text-align: center;
+            flex-grow: 1; /* Allows info section to take available space */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .image-info h3 {
+            font-size: 1.125rem; /* Larger title font */
+            font-weight: 600; /* Semi-bold */
+            margin-bottom: 0.5rem;
+            color: #222;
+        }
+        .image-info p {
+            font-size: 0.875rem; /* Smaller description font */
+            color: #666;
+            line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+        .view-button {
+            display: inline-block;
+            background-color: #4f46e5; /* Indigo 600 */
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.5rem; /* Rounded button corners */
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s ease-in-out;
+            margin-top: auto; /* Push button to the bottom */
+        }
+        .view-button:hover {
+            background-color: #4338ca; /* Darker indigo on hover */
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 768px) {
+            .gallery-container {
+                grid-template-columns: 1fr; /* Single column on small screens */
+                padding: 1rem;
+                margin: 1rem auto;
+            }
+            .gallery-item img {
+                height: 180px; /* Slightly smaller image height on mobile */
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-start">
+    <div class="w-full">
+        <div class="gallery-header">
+            <h1>Gallery One: Landscapes</h1>
+            <p>A collection of beautiful landscapes from my travels.</p>
+            <a href="index.html" class="back-button">← Back to Home</a>
+        </div>
+    </div>
+
+    <div class="w-full max-w-screen-xl mx-auto p-4">
+        <div class="gallery-container">
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/XvzRvK2k/DSC-0245.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/XvzRvK2k/DSC-0245.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/PqJGhVMq/DSC-0246.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/PqJGhVMq/DSC-0246.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/9Mwvw4K5/DSC-0247.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/9Mwvw4K5/DSC-0247.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/4yCj6fRK/DSC-0248.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/4yCj6fRK/DSC-0248.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/90GK16cL/DSC-0250.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/90GK16cL/DSC-0250.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/05mT8w77/DSC-0251.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/05mT8w77/DSC-0251.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/Kv2d485w/DSC-0252.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/Kv2d485w/DSC-0252.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/Ghx6Dn72/DSC-0253.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/Ghx6Dn72/DSC-0253.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/rwy3CZ39/DSC-0254.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/rwy3CZ39/DSC-0254.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/13WTWcZ1/DSC-0256.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/13WTWcZ1/DSC-0256.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/JhGFSD1D/DSC-0257.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/JhGFSD1D/DSC-0257.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/tgwcbqTr/DSC-0258.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/tgwcbqTr/DSC-0258.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/V6tVLx0z/DSC-0259.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/V6tVLx0z/DSC-0259.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/d3KS75Gr/DSC-0260.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/d3KS75Gr/DSC-0260.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/sx9H55J8/DSC-0261.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/sx9H55J8/DSC-0261.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/h49YFqqr/DSC-0262.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/h49YFqqr/DSC-0262.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/L62b209M/DSC-0263.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/L62b209M/DSC-0263.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/65c13Lq4/DSC-0264.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/65c13Lq4/DSC-0264.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/y8NpSg3Q/DSC-0265.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/y8NpSg3Q/DSC-0265.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/0yHWGkp8/DSC-0266.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/0yHWGkp8/DSC-0266.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/yNgfvMP0/DSC-0267.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/yNgfvMP0/DSC-0267.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/CK3ctcPX/DSC-0270.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/CK3ctcPX/DSC-0270.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/br83YsjR/DSC-0271.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/br83YsjR/DSC-0271.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/hjV2qVNj/DSC-0272.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/hjV2qVNj/DSC-0272.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/L5TvJ29F/DSC-0273.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/L5TvJ29F/DSC-0273.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/SQ7gT7W1/DSC-0274.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/SQ7gT7W1/DSC-0274.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/CLhmWB7h/DSC-0276.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/CLhmWB7h/DSC-0276.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/L6xNR9Qz/DSC-0278.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/L6xNR9Qz/DSC-0278.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/134M3kbb/DSC-0279.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/134M3kbb/DSC-0279.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/QdPm963C/DSC-0280.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/QdPm963C/DSC-0280.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/Pqw4mmX4/DSC-0281.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/Pqw4mmX4/DSC-0281.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/1t1KMf4Z/DSC-0285.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/1t1KMf4Z/DSC-0285.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/0QG04PJK/DSC-0286.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/0QG04PJK/DSC-0286.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/d3qjPp8H/DSC-0287.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/d3qjPp8H/DSC-0287.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/kXYFzjDs/DSC-0288.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/kXYFzjDs/DSC-0288.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/zv0SJ77J/DSC-0289.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/zv0SJ77J/DSC-0289.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/T3yq6rD6/DSC-0290.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/T3yq6rD6/DSC-0290.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/GmZPhHFs/DSC-0291.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/GmZPhHFs/DSC-0291.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/W4gGDT8Y/DSC-0292.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/W4gGDT8Y/DSC-0292.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/ZRL6cH1r/DSC-0293.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/ZRL6cH1r/DSC-0293.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/k4CxKzhJ/DSC-0295.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/k4CxKzhJ/DSC-0295.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/8cKM85kc/DSC-0298.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/8cKM85kc/DSC-0298.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/5yNLkvVD/DSC-0300.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/5yNLkvVD/DSC-0300.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/MZdyfs0w/DSC-0303.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/MZdyfs0w/DSC-0303.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/qMFyjzZZ/DSC-0305.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/qMFyjzZZ/DSC-0305.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/vHT5rWXV/DSC-0306.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/vHT5rWXV/DSC-0306.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/CxfDtS3M/DSC-0308.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/CxfDtS3M/DSC-0308.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/R05fx2m7/DSC-0309.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/R05fx2m7/DSC-0309.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/k5QSJwMk/DSC-0310.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/k5QSJwMk/DSC-0310.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/85wrW564/DSC-0311.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/85wrW564/DSC-0311.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/Wz3q7vmv/DSC-0312.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/Wz3q7vmv/DSC-0312.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/66jvp8w5/DSC-0313.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/66jvp8w5/DSC-0313.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/BbVLYVN1/DSC-0315.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/BbVLYVN1/DSC-0315.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/dthTkJtR/DSC-0317.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/dthTkJtR/DSC-0317.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/dVdk6nCL/DSC-0320.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/dVdk6nCL/DSC-0320.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/NfZ2RZ53/DSC-0321.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/NfZ2RZ53/DSC-0321.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/3wFy5Rnh/DSC-0322.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/3wFy5Rnh/DSC-0322.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/k5mVp8Nw/DSC-0323.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/k5mVp8Nw/DSC-0323.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/j5qDsbF7/DSC-0324.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/j5qDsbF7/DSC-0324.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/XJ2pqzRD/DSC-0325.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/XJ2pqzRD/DSC-0325.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/MHvXQYxZ/DSC-0326.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/MHvXQYxZ/DSC-0326.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/vTkTL6Hr/DSC-0327.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/vTkTL6Hr/DSC-0327.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/fWrVh1jV/DSC-0328.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/fWrVh1jV/DSC-0328.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/X7BpNxQQ/DSC-0329.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/X7BpNxQQ/DSC-0329.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/Gm094Yfr/DSC-0330.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/Gm094Yfr/DSC-0330.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/HkQnXnGM/DSC-0331.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/HkQnXnGM/DSC-0331.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/DznZghFM/DSC-0332.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/DznZghFM/DSC-0332.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/W484Yy1b/DSC-0337.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/W484Yy1b/DSC-0337.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/Kzs8xgT6/DSC-0338.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/Kzs8xgT6/DSC-0338.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/DZzw9cSQ/DSC-0339.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/DZzw9cSQ/DSC-0339.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/d3kt1tmL/DSC-0340.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/d3kt1tmL/DSC-0340.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/RhkCn5XG/DSC-0341.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/RhkCn5XG/DSC-0341.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/fWpRPmDX/DSC-0342.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/fWpRPmDX/DSC-0342.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/J4XzC0zF/DSC-0343.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/J4XzC0zF/DSC-0343.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/HkCsYmJk/DSC-0344.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/HkCsYmJk/DSC-0344.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/zGSD3QWS/DSC-0345.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/zGSD3QWS/DSC-0345.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/9fmm9BY3/DSC-0346.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/9fmm9BY3/DSC-0346.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/XJXnH7PQ/DSC-0347.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/XJXnH7PQ/DSC-0347.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/BvmqB1mj/DSC-0348.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/BvmqB1mj/DSC-0348.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/853NqgQD/DSC-0349.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/853NqgQD/DSC-0349.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/nrDpxSpm/DSC-0354.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/nrDpxSpm/DSC-0354.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/3WQ7xjxc/DSC-0355.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/3WQ7xjxc/DSC-0355.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/PfpwNtqW/DSC-0356.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/PfpwNtqW/DSC-0356.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/QN2WTRBR/DSC-0357.jpg" alt="Gallery Image">
+                <div class="image-info">
+                    <a href="https://i.postimg.cc/QN2WTRBR/DSC-0357.jpg" class="view-button" target="_blank">View Photo</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
