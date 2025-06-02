@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burbon Country 10s Game 2 (05-31-2025) Gallery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom styles for smooth transitions and font */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+        }
+        .gallery-image {
+            transition: transform 0.2s ease-in-out;
+        }
+        .gallery-image:hover {
+            transform: scale(1.05);
+            cursor: pointer;
+        }
+        .modal {
+            background-color: rgba(0, 0, 0, 0.9);
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal-content {
+            max-height: 90vh; /* Limit height to prevent overflow on smaller screens */
+            max-width: 90vw; /* Limit width to prevent overflow on smaller screens */
+            object-fit: contain; /* Ensure image fits within bounds */
+            cursor: pointer; /* Indicate that the modal image is clickable */
+        }
+        /* Spinner animation */
+        .spinner {
+            border: 8px solid rgba(255, 255, 255, 0.3);
+            border-top: 8px solid #ffffff;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center py-8">
+
+    <h1 class="text-4xl font-extrabold text-gray-800 mb-10 rounded-lg p-4 bg-white shadow-lg">Burbon Country 10s Game 2 (05-31-2025) Gallery</h1>
+
+    <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 max-w-7xl mx-auto bg-white rounded-xl shadow-2xl">
+        </div>
+
+    <div id="imageModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal opacity-0">
+        <div class="relative flex flex-col items-center justify-center w-full h-full">
+            <button id="closeModal" class="absolute top-4 right-4 text-white text-4xl p-2 rounded-full bg-gray-700 bg-opacity-50 hover:bg-opacity-75 focus:outline-none z-50" aria-label="Close image modal">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div id="loadingSpinner" class="spinner absolute z-40 hidden"></div>
+
+            <img id="modalImage" src="" alt="Gallery Image" class="modal-content rounded-lg shadow-lg">
+
+            <div id="clickToSourceText" class="absolute bottom-8 text-white text-lg bg-black bg-opacity-50 px-4 py-2 rounded-lg hidden transition-opacity duration-300 opacity-0">
+                Click image to view original source
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Array of image URLs (copied directly from your provided links)
+        const imageUrls = [
+            "https://i.postimg.cc/1XhC2vt4/DSC-0151.jpg",
+            "https://i.postimg.cc/gc8B8bSh/DSC-0154.jpg",
+            "https://i.postimg.cc/CL0r4rXQ/DSC-0155.jpg",
+            "https://i.postimg.cc/SR6Thc2d/DSC-0156.jpg",
+            "https://i.postimg.cc/bNRCVHjN/DSC-0157.jpg",
+            "https://i.postimg.cc/52NPhYx5/DSC-0158.jpg",
+            "https://i.postimg.cc/mrPmrv1t/DSC-0159.jpg",
+            "https://i.postimg.cc/3xSLY8Rs/DSC-0161.jpg",
+            "https://i.postimg.cc/YSTbLdQ8/DSC-0162.jpg",
+            "https://i.postimg.cc/TwmQVn9x/DSC-0163.jpg",
+            "https://i.postimg.cc/brhg3dCt/DSC-0164.jpg",
+            "https://i.postimg.cc/WpGXt6z6/DSC-0165.jpg",
+            "https://i.postimg.cc/J05qgmvd/DSC-0166.jpg",
+            "https://i.postimg.cc/KvmQTkgX/DSC-0167.jpg",
+            "https://i.postimg.cc/J4Kx5rbs/DSC-0169.jpg",
+            "https://i.postimg.cc/P5x46g42/DSC-0170.jpg",
+            "https://i.postimg.cc/k5RyCWLS/DSC-0171.jpg",
+            "https://i.postimg.cc/HkhtF6vH/DSC-0174.jpg",
+            "https://i.postimg.cc/gJvqXmzk/DSC-0180.jpg",
+            "https://i.postimg.cc/MTkmpv8F/DSC-0181.jpg",
+            "https://i.postimg.cc/Vvgqgg0x/DSC-0182.jpg",
+            "https://i.postimg.cc/fyD7Ypy7/DSC-0183.jpg",
+            "https://i.postimg.cc/PfQQdXVS/DSC-0184.jpg",
+            "https://i.postimg.cc/TY2qwzZf/DSC-0185.jpg",
+            "https://i.postimg.cc/fTH70HNX/DSC-0186.jpg",
+            "https://i.postimg.cc/8zjRdhpY/DSC-0187.jpg",
+            "https://i.postimg.cc/vmn5kb6L/DSC-0188.jpg",
+            "https://i.postimg.cc/Z52rwC05/DSC-0189.jpg",
+            "https://i.postimg.cc/vBLf8hh4/DSC-0190.jpg",
+            "https://i.postimg.cc/Y9wQwZ6c/DSC-0191.jpg",
+            "https://i.postimg.cc/fyzXVdqB/DSC-0192.jpg",
+            "https://i.postimg.cc/NFdXm0WY/DSC-0193.jpg",
+            "https://i.postimg.cc/SQdCwZj5/DSC-0194.jpg",
+            "https://i.postimg.cc/bNvk8Qtv/DSC-0195.jpg",
+            "https://i.postimg.cc/TYHmPpVJ/DSC-0196.jpg",
+            "https://i.postimg.cc/fRtdSD5n/DSC-0197.jpg",
+            "https://i.postimg.cc/7LSTX9pK/DSC-0198.jpg",
+            "https://i.postimg.cc/0yTwpFH6/DSC-0199.jpg",
+            "https://i.postimg.cc/1tHV1tR6/DSC-0200.jpg",
+            "https://i.postimg.cc/3R70qphY/DSC-0201.jpg",
+            "https://i.postimg.cc/C5xBhgd2/DSC-0202.jpg",
+            "https://i.postimg.cc/fyq3kr9R/DSC-0204.jpg",
+            "https://i.postimg.cc/pVs50p6M/DSC-0205.jpg",
+            "https://i.postimg.cc/L6hYG2cY/DSC-0206.jpg",
+            "https://i.postimg.cc/L67YpGSy/DSC-0208.jpg",
+            "https://i.postimg.cc/HkyJs3sT/DSC-0209.jpg",
+            "https://i.postimg.cc/QtXVm3gM/DSC-0210.jpg",
+            "https://i.postimg.cc/nLKCqzD5/DSC-0211.jpg",
+            "https://i.postimg.cc/nLfXs7CB/DSC-0212.jpg",
+            "https://i.postimg.cc/Y9b0ys8z/DSC-0213.jpg",
+            "https://i.postimg.cc/vTTTRtNF/DSC-0214.jpg",
+            "https://i.postimg.cc/59KjBDXx/DSC-0215.jpg",
+            "https://i.postimg.cc/90kMcw64/DSC-0216.jpg",
+            "https://i.postimg.cc/yYJxvnR0/DSC-0217.jpg",
+            "https://i.postimg.cc/gkfJ5RyQ/DSC-0218.jpg",
+            "https://i.postimg.cc/7L4LPkWN/DSC-0219.jpg",
+            "https://i.postimg.cc/8zM5V5t5/DSC-0220.jpg",
+            "https://i.postimg.cc/1X8m758y/DSC-0221.jpg",
+            "https://i.postimg.cc/gJScK6kM/DSC-0222.jpg",
+            "https://i.postimg.cc/gJkkRKdX/DSC-0223.jpg",
+            "https://i.postimg.cc/0jh8TRSD/DSC-0226.jpg",
+            "https://i.postimg.cc/BnTqVznP/DSC-0227.jpg",
+            "https://i.postimg.cc/XYSjxW40/DSC-0229.jpg",
+            "https://i.postimg.cc/9f1cWqTW/DSC-0230.jpg",
+            "https://i.postimg.cc/CKwFT4RP/DSC-0231.jpg",
+            "https://i.postimg.cc/DZZnmyd1/DSC-0232.jpg",
+            "https://i.postimg.cc/1tjPFhJ2/DSC-0234.jpg",
+            "https://i.postimg.cc/SRY47TPs/DSC-0238.jpg",
+            "https://i.postimg.cc/mZP15bfc/DSC-0239.jpg",
+            "https://i.postimg.cc/K4X297X5/DSC-0240.jpg",
+            "https://i.postimg.cc/NGZ2hWBd/DSC-0243.jpg"
+        ];
+
+        let currentImageIndex = 0; // Tracks the currently displayed image in the modal
+
+        // Get DOM elements
+        const galleryDiv = document.getElementById('gallery');
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const closeModalBtn = document.getElementById('closeModal');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const clickToSourceText = document.getElementById('clickToSourceText');
+
+        /**
+         * Populates the gallery with thumbnail images.
+         */
+        function populateGallery() {
+            imageUrls.forEach((url, index) => {
+                const imgContainer = document.createElement('div');
+                imgContainer.className = 'relative group rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300';
+
+                const img = document.createElement('img');
+                img.src = url;
+                // Dynamically set alt text for better accessibility
+                img.alt = `Gallery Image ${index + 1}`;
+                img.className = 'w-full h-48 object-cover gallery-image transform group-hover:scale-105 rounded-lg';
+                img.loading = 'lazy'; // Lazy load images for better performance
+                // Add an onerror handler for broken image links
+                img.onerror = function() {
+                    this.src = 'https://placehold.co/400x300/cccccc/333333?text=Image+Error';
+                    this.alt = 'Image failed to load';
+                };
+
+                // Overlay for hover effect
+                const overlay = document.createElement('div');
+                overlay.className = 'absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center';
+                const viewIcon = document.createElement('i');
+                viewIcon.className = 'fas fa-eye text-white text-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300';
+                overlay.appendChild(viewIcon);
+
+                imgContainer.appendChild(img);
+                imgContainer.appendChild(overlay);
+
+                // Add click listener to open the modal
+                imgContainer.addEventListener('click', () => openModal(index)); // Pass the index
+                galleryDiv.appendChild(imgContainer);
+            });
+        }
+
+        /**
+         * Opens the image modal and displays the image at the given index.
+         * @param {number} index - The index of the image to display.
+         */
+        function openModal(index) {
+            currentImageIndex = index;
+            
+            // Show spinner and hide image initially
+            loadingSpinner.classList.remove('hidden');
+            modalImage.classList.add('hidden');
+            clickToSourceText.classList.add('hidden', 'opacity-0');
+
+            modalImage.src = imageUrls[currentImageIndex];
+            // Add error fallback for modal image as well
+            modalImage.onerror = function() {
+                this.src = 'https://placehold.co/800x600/cccccc/333333?text=Image+Error';
+                this.alt = 'Image failed to load';
+                loadingSpinner.classList.add('hidden'); // Hide spinner on error
+                modalImage.classList.remove('hidden'); // Show error image
+            };
+
+            // When image loads, hide spinner and show image and text
+            modalImage.onload = function() {
+                loadingSpinner.classList.add('hidden');
+                modalImage.classList.remove('hidden');
+                // Show click-to-source text after a slight delay for better UX
+                setTimeout(() => {
+                    clickToSourceText.classList.remove('hidden');
+                    setTimeout(() => clickToSourceText.classList.remove('opacity-0'), 10);
+                }, 200);
+            };
+
+            imageModal.classList.remove('hidden');
+            // Trigger opacity transition
+            setTimeout(() => {
+                imageModal.classList.remove('opacity-0');
+            }, 10);
+            document.body.style.overflow = 'hidden'; // Prevent scrolling background
+        }
+
+        /**
+         * Closes the image modal.
+         */
+        function closeModal() {
+            imageModal.classList.add('opacity-0');
+            // Hide after transition
+            setTimeout(() => {
+                imageModal.classList.add('hidden');
+                // Reset image src to prevent flickering on next open
+                modalImage.src = '';
+            }, 300);
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        /**
+         * Displays the next image in the modal.
+         */
+        function showNextImage() {
+            currentImageIndex = (currentImageIndex + 1) % imageUrls.length;
+            openModal(currentImageIndex); // Re-open modal with new image
+        }
+
+        /**
+         * Displays the previous image in the modal.
+         */
+        function showPrevImage() {
+            currentImageIndex = (currentImageIndex - 1 + imageUrls.length) % imageUrls.length;
+            openModal(currentImageIndex); // Re-open modal with new image
+        }
+
+        // Event Listeners
+        closeModalBtn.addEventListener('click', closeModal);
+
+        // Add click listener to the modal image to open its source link
+        modalImage.addEventListener('click', () => {
+            if (modalImage.src && !modalImage.classList.contains('hidden')) { // Ensure image is visible before opening link
+                window.open(modalImage.src, '_blank'); // Open the image source in a new tab
+            }
+        });
+
+        // Keyboard navigation for modal (Arrows for navigation, Escape for close)
+        document.addEventListener('keydown', (e) => {
+            if (!imageModal.classList.contains('hidden')) { // Only active if modal is open
+                if (e.key === 'ArrowRight') {
+                    showNextImage();
+                } else if (e.key === 'ArrowLeft') {
+                    showPrevImage();
+                } else if (e.key === 'Escape') {
+                    closeModal();
+                }
+            }
+        });
+
+        // Touch event listeners for swiping on the modal image
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        modalImage.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        });
+
+        modalImage.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].clientX;
+            handleSwipeGesture();
+        });
+
+        function handleSwipeGesture() {
+            const swipeThreshold = 50; // Minimum distance in pixels for a swipe to be recognized
+
+            if (touchEndX < touchStartX - swipeThreshold) {
+                // Swiped left (go to next image)
+                showNextImage();
+            } else if (touchEndX > touchStartX + swipeThreshold) {
+                // Swiped right (go to previous image)
+                showPrevImage();
+            }
+        }
+
+        // Initialize the gallery when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', populateGallery);
+
+    </script>
+</body>
+</html>
