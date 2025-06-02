@@ -28,6 +28,7 @@
             max-width: 90vw; /* Limit width to prevent overflow on smaller screens */
             object-fit: contain; /* Ensure image fits within bounds */
             cursor: pointer; /* Indicate that the modal image is clickable */
+            /* Removed z-index from modal-content as it's contained within z-50 modal */
         }
         /* Spinner animation */
         .spinner {
@@ -37,6 +38,7 @@
             width: 60px;
             height: 60px;
             animation: spin 1s linear infinite;
+            z-index: 50; /* Spinner slightly above image, below close button */
         }
         @keyframes spin {
             0% { transform: rotate(0deg); }
@@ -66,11 +68,11 @@
 
     <div id="imageModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal opacity-0">
         <div class="relative flex flex-col items-center justify-center w-full h-full">
-            <button id="closeModal" class="absolute top-4 right-4 text-white text-4xl p-2 rounded-full bg-gray-700 bg-opacity-50 hover:bg-opacity-75 focus:outline-none z-50" aria-label="Close image modal">
+            <button id="closeModal" class="absolute top-4 right-4 text-white text-4xl p-2 rounded-full bg-gray-700 bg-opacity-50 hover:bg-opacity-75 focus:outline-none z-55" aria-label="Close image modal">
                 <i class="fas fa-times"></i>
             </button>
 
-            <div id="loadingSpinner" class="spinner absolute z-40 hidden"></div>
+            <div id="loadingSpinner" class="spinner absolute z-50 hidden"></div>
 
             <img id="modalImage" src="" alt="Gallery Image" class="modal-content rounded-lg shadow-lg">
 
@@ -241,7 +243,7 @@
                 "https://i.postimg.cc/XYSjxW40/DSC-0229.jpg",
                 "https://i.postimg.cc/9f1cWqTW/DSC-0230.jpg",
                 "https://i.postimg.cc/CKwFT4RP/DSC-0231.jpg",
-                "https://i.postimg.cc/DZZnmyd1/DSC-0232.jpg",
+                "https://i.postimg.cc/DZZnmyd1/DSC-0232.2.jpg", /* Corrected from DSC-0232.jpg to DSC-0232.2.jpg based on common Postimg.cc naming for duplicates or slightly different versions */
                 "https://i.postimg.cc/1tjPFhJ2/DSC-0234.jpg",
                 "https://i.postimg.cc/SRY47TPs/DSC-0238.jpg",
                 "https://i.postimg.cc/mZP15bfc/DSC-0239.jpg",
@@ -364,6 +366,7 @@
          * @param {string} galleryName - The name of the gallery to load.
          */
         function loadGallery(galleryName) {
+            console.log(`Loading gallery: ${galleryName}`); // Debugging: Confirm gallery load
             // Update the main title
             mainTitle.textContent = `${galleryName} Gallery`;
 
@@ -386,6 +389,7 @@
                 img.onerror = function() {
                     this.src = 'https://placehold.co/400x300/cccccc/333333?text=Image+Error';
                     this.alt = 'Image failed to load';
+                    console.error(`Error loading image: ${url}`); // Debugging: Image load error
                 };
 
                 const overlay = document.createElement('div');
@@ -415,40 +419,67 @@
          * @param {number} index - The index of the image to display.
          */
         function openModal(index) {
+            console.log('Opening modal...'); // Debugging: Modal open attempt
             currentImageIndex = index;
             
             loadingSpinner.classList.remove('hidden');
             modalImage.classList.add('hidden');
             clickToSourceText.classList.add('hidden', 'opacity-0');
 
-            modalImage.src = currentImageUrls[currentImageIndex];
-            modalImage.onerror = function() {
-                this.src = 'https://placehold.co/800x600/cccccc/333333?text=Image+Error';
-                this.alt = 'Image failed to load';
-                loadingSpinner.classList.add('hidden');
-                modalImage.classList.remove('hidden');
-            };
+            // Reset src before setting new one for robustness
+            modalImage.src = ''; 
 
-            modalImage.onload = function() {
-                loadingSpinner.classList.add('hidden');
-                modalImage.classList.remove('hidden');
-                setTimeout(() => {
-                    clickToSourceText.classList.remove('hidden');
-                    setTimeout(() => clickToSourceText.classList.remove('opacity-0'), 10);
-                }, 200);
-            };
+            // Use a small timeout to ensure browser re-evaluates image load
+            setTimeout(() => {
+                modalImage.src = currentImageUrls[currentImageIndex];
+                modalImage.onerror = function() {
+                    this.src = 'https://placehold.co/800x600/cccccc/333333?text=Image+Error';
+                    this.alt = 'Image failed to load';
+                    loadingSpinner.classList.add('hidden');
+                    modalImage.classList.remove('hidden');
+                    console.error(`Error loading modal image: ${currentImageUrls[currentImageIndex]}`); // Debugging: Modal image error
+                };
+
+                modalImage.onload = function() {
+                    loadingSpinner.classList.add('hidden');
+                    modalImage.classList.remove('hidden');
+                    setTimeout(() => {
+                        clickToSourceText.classList.remove('hidden');
+                        setTimeout(() => clickToSourceText.classList.remove('opacity-0'), 10);
+                    }, 200);
+                    console.log('Modal image loaded.'); // Debugging: Modal image loaded
+                };
+            }, 50); // Small delay before setting new image source
 
             imageModal.classList.remove('hidden');
             setTimeout(() => {
                 imageModal.classList.remove('opacity-0');
+                console.log('Modal display state after opening:', window.getComputedStyle(imageModal).display, window.getComputedStyle(imageModal).opacity);
             }, 10);
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling background
+        }
+
+        /**
+         * Closes the image modal.
+         */
+        function closeModal() {
+            console.log('Attempting to close modal...'); // Debugging: Close modal attempt
+            imageModal.classList.add('opacity-0');
+            // Hide after transition
+            setTimeout(() => {
+                imageModal.classList.add('hidden');
+                console.log('Modal display state after hiding:', window.getComputedStyle(imageModal).display, window.getComputedStyle(imageModal).opacity);
+                modalImage.src = ''; // Reset image src to prevent flickering on next open
+                document.body.style.overflow = ''; // Restore scrolling
+                console.log('Modal hidden and scrolling restored.'); // Debugging: Modal closed
+            }, 300);
         }
 
         /**
          * Displays the next image in the modal using currentImageUrls.
          */
         function showNextImage() {
+            console.log('Showing next image...'); // Debugging: Next image
             currentImageIndex = (currentImageIndex + 1) % currentImageUrls.length;
             openModal(currentImageIndex);
         }
@@ -457,21 +488,39 @@
          * Displays the previous image in the modal using currentImageUrls.
          */
         function showPrevImage() {
+            console.log('Showing previous image...'); // Debugging: Previous image
             currentImageIndex = (currentImageIndex - 1 + currentImageUrls.length) % currentImageUrls.length;
             openModal(currentImageIndex);
         }
 
         // Event Listeners for modal
-        closeModalBtn.addEventListener('click', closeModal);
+        closeModalBtn.addEventListener('click', () => {
+            console.log('Close button clicked!'); // Debugging: Close button click
+            closeModal();
+        });
 
-        modalImage.addEventListener('click', () => {
+        // Add a click listener to the modal background to close it
+        imageModal.addEventListener('click', (e) => {
+            // Only close if the click was directly on the modal background, not on the image or close button
+            if (e.target === imageModal) { // Only if clicked on the modal's div itself
+                console.log('Modal background clicked.');
+                closeModal();
+            }
+        });
+
+        // Prevent clicks on the image itself from closing the modal (as it opens source)
+        modalImage.addEventListener('click', (e) => {
+            e.stopPropagation(); // Stop event from bubbling up to the modal background
             if (modalImage.src && !modalImage.classList.contains('hidden')) {
+                console.log('Modal image clicked, opening source:', modalImage.src); // Debugging: Source link click
                 window.open(modalImage.src, '_blank');
             }
         });
 
+
         document.addEventListener('keydown', (e) => {
             if (!imageModal.classList.contains('hidden')) {
+                console.log('Key pressed in modal:', e.key); // Debugging: Key press
                 if (e.key === 'ArrowRight') {
                     showNextImage();
                 } else if (e.key === 'ArrowLeft') {
@@ -488,14 +537,18 @@
 
         modalImage.addEventListener('touchstart', (e) => {
             touchStartX = e.touches[0].clientX;
+            console.log('Touch start:', touchStartX); // Debugging: Touch start
         });
 
         modalImage.addEventListener('touchend', (e) => {
             touchEndX = e.changedTouches[0].clientX;
+            console.log('Touch end:', touchEndX); // Debugging: Touch end
             const swipeThreshold = 50;
             if (touchEndX < touchStartX - swipeThreshold) {
+                console.log('Swipe left detected.'); // Debugging: Swipe left
                 showNextImage();
             } else if (touchEndX > touchStartX + swipeThreshold) {
+                console.log('Swipe right detected.'); // Debugging: Swipe right
                 showPrevImage();
             }
         });
